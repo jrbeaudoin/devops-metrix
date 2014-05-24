@@ -4,5 +4,6 @@ angular.module('metrix.dashboard')
   ($routeProvider) ->
     $routeProvider
     .when '/dashboard',
+      controller: 'dashboardController'
       templateUrl: 'dashboard/view/dashboard-view.html'
   ]
