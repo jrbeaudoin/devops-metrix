@@ -5,14 +5,25 @@
   right: 0;
 
   .help-button {
-    .glyphicon;
-    .glyphicon-question-sign;
-    font-size: @font-size-h2;
-    color: @text-muted;
+    .btn;
+    .btn-link;
 
-    &:hover {
-      color: @link-color;
+    i {
+      .glyphicon;
+      .glyphicon-question-sign;
     }
   }
+}
 
+.legend {
+  .popover;
+
+  .legend-content{
+    .popover-content;
+    .text-center;
+
+    svg {
+      vertical-align: sub;
+    }
+  }
 }

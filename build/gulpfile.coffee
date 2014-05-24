@@ -93,7 +93,7 @@ gulp.task 'watch', ['build'], ->
   gulp.watch parameters.app_path + '/*.jade', ['compile']
   gulp.watch parameters.app_path + '/*/**/*.jade', ['compile']
   gulp.watch parameters.assets_path, ['compile']
-  gulp.watch parameters.less_main_file, ['compile']
+  gulp.watch parameters.app_path + '/**/*.less', ['compile']
   gulp.watch 'bower_components', ['compile']
 
   serve(parameters.web_path)()
