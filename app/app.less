@@ -2,4 +2,14 @@
 @bootstrap-path: '@{bower-components}/bootstrap/less';
 @import '@{bootstrap-path}/bootstrap';
 
+@body-bg: lighten(@gray-lighter, 3);
+html {
+  #gradient.radial(lighten(@body-bg,3), @body-bg);
+  height: 100%;
+
+  body {
+    background: transparent;
+  }
+}
+
 @import 'dashboard/dashboard-styles';
