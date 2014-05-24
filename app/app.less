@@ -3,11 +3,11 @@
 @import '@{bootstrap-path}/bootstrap';
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
-@body-bg: lighten(@gray-lighter, 3);
+@body-bg: @gray-lighter;
 @headings-font-family: Raleway;
 
 html {
-  #gradient.radial(lighten(@body-bg,3), @body-bg);
+  #gradient.radial(lighten(@body-bg,7), darken(@body-bg,7));
   height: 100%;
 
   body {
