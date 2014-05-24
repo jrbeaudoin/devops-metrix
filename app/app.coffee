@@ -3,6 +3,7 @@ angular
   'ng'
   'ngRoute'
   'metrix.dashboard'
+  'metrix.project'
   'metrix.help'
   ])
 .config([
