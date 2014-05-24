@@ -39,7 +39,7 @@ angular.module('metrix.dashboard')
       # Get max value
       maxValue = getMaxFromNodes data
       # Create scaleFactor that will ensure circles will fit in the window
-      return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * data.length
+      return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * Math.sqrt(data.length) * 4
 
     nodeClick = (nodeClicked) ->
       $scope.zoomed = true
@@ -153,17 +153,18 @@ angular.module('metrix.dashboard')
 
     fillCircle = circlesContainer.append("circle").attr("class", "fill-circle")
 
-    projectName = node
-    .append("text")
-    .attr("dy", "0.35em")
-    .attr("x", 0)
-    .attr("y", 0)
 
     projectScore = node
     .append 'text'
     .attr 'x', 0
     .attr 'y', 0
     .attr 'class', 'project-score'
+
+    projectName = node
+    .append("text")
+    .attr("dy", "0.35em")
+    .attr("x", 0)
+    .attr("y", 0)
 
     gradient = defs
     .selectAll 'linearGradient'

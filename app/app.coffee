@@ -69,7 +69,7 @@ angular
       score
 
     createData = ->
-      for i in [0..10]
+      for i in [0..30]
         projects.push
           "id": i
           "name": randomNames[i]
