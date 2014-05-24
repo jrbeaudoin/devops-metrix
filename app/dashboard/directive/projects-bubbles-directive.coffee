@@ -171,4 +171,5 @@ angular.module('metrix.dashboard')
       .style 'fill', (d) -> 'url(#gradient-'+bubbleId(d)+')'
       circlesContainer
       .style 'opacity', bubbleOpacity
+      .classed "offline", (d) -> return !d.online
     , true

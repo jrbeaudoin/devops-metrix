@@ -50,6 +50,7 @@ angular
           "deployedOn": new Date()
           "ciStatus": not (i % 4 == 0)
           "coverage": randomGauss 0.5, 0.5
+          "online": true
 
     createData()
 
@@ -64,6 +65,12 @@ angular
         if Math.random() > 0.995
           project.deployedOn = new Date()
           project.updated = true
+        if project.updated
+          if Math.random() > 0.6 and !project.online
+            project.online = true
+          if Math.random() > 0.9 and project.online
+            project.online = false
+
 
     $interval ->
       updateData()
