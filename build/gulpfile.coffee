@@ -75,7 +75,7 @@ gulp.task 'templates', ['clean'], ->
   .on 'error', gutil.log
 
 gulp.task 'less', ['clean'], ->
-  css = gulp.src parameters.less_main_file
+  gulp.src parameters.less_main_file
   .pipe less paths: [ path.join(__dirname) ]
   .pipe gulp.dest parameters.web_path + '/css'
   .pipe filesize()
