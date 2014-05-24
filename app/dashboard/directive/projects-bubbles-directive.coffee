@@ -1,6 +1,6 @@
 angular.module('metrix.dashboard')
 
-.directive 'metrixProjectsBubbles', ($rootScope, $location) ->
+.directive 'metrixProjectsBubbles', ($rootScope) ->
   template: "<svg></svg>"
   link: ($scope, $element) ->
     bubbleId = (node) ->
@@ -59,7 +59,7 @@ angular.module('metrix.dashboard')
       d3.select(nodeGroup)
       .classed("hidden", false)
       .transition().duration(300)
-      .attr("transform", (d) ->
+      .attr("transform", ->
         "translate(" + 0.5 * width + "," + 0 + ") scale(" + zoomScale + ")"
       )
       .select(".name").attr("dy", "1em")
