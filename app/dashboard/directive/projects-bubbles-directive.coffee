@@ -125,7 +125,9 @@ angular.module('metrix.dashboard')
     .attr("class", "node")
     .call(force.drag)
 
-    svg.selectAll(".node").on "click", nodeClick
+    svg.selectAll(".node").on "click", (d) ->
+      if (d3.event.defaultPrevented) then return
+      nodeClick(d)
     svg.on "click", svgClick
 
     circlesContainer = node.append("g").attr("class", "circles-container")
