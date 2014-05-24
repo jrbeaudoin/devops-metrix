@@ -8,14 +8,14 @@ angular.module('metrix.dashboard')
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
-          return '#5FF06B'
+          return '#609000'
         when false
-          return '#FF3C48'
+          return '#F00000'
     bubbleOpacity = (node) ->
       now = new Date()
       maxAgeWithoutDeploy = 1000 * 30 # milliseconds
       1 - 0.8 * Math.min (now - node.deployedOn) / maxAgeWithoutDeploy, 1
-    getMaxFromNodes = (data, valueName = "value") ->
+    getMaxFromNodes = (data) ->
       maxValue = -Infinity
       for node in data
         maxValue = Math.max(maxValue, bubbleSize node)
