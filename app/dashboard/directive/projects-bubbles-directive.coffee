@@ -6,7 +6,9 @@ angular.module('metrix.dashboard')
     bubbleSize = (node) ->
       Math.sqrt node.commits
     bubbleOpacity = (node) ->
-      0.5
+      now = new Date()
+      maxAgeWithoutDeploy = 1000 * 30 # milliseconds
+      1 - 0.8 * Math.min (now - node.deployedOn) / maxAgeWithoutDeploy, 1
     getMaxFromNodes = (data, valueName = "value") ->
       maxValue = -Infinity
       for node in data
@@ -54,6 +56,7 @@ angular.module('metrix.dashboard')
         bubbleSize(d) / scaleFactor
       )
       .style("fill", "gray")
+      .style 'opacity', (d) -> bubbleOpacity d
 
       projectName.text (d) ->
         d.name
@@ -93,8 +96,9 @@ angular.module('metrix.dashboard')
       chartData = $rootScope.projects
       circle.data(chartData)
       scaleFactor = getScaleFactor chartData
-      circle.transition().duration(300).ease("elastic").attr("r", (d) ->
+      circle
+      .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
-      )
-      .style("fill", "gray")
+      .style "fill", "gray"
+      .style 'opacity', (d) -> bubbleOpacity d
     , true
