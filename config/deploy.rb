@@ -14,7 +14,7 @@ namespace :deploy do
   desc "Install dependencies and build app"
   task :updated do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "cd #{release_path} && npm install --quiet && npm start"
+      execute "cd #{release_path} && npm install --quiet"
     end
   end
 end
