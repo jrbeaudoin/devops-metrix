@@ -42,19 +42,24 @@ angular.module('metrix.dashboard')
 
       nodeFound = node.filter (d) ->
         if d.id == nodeClicked.id
-          zoomScale = Math.min(height, 0.5*width) / bubbleSize(d)
+          zoomScale = 0.9 * Math.min(height, 0.5*width) / bubbleSize(d)
         d.id == nodeClicked.id
       nodeGroup = nodeFound[0][0]
 
       d3.select(nodeGroup)
       .classed("hidden", false)
       .transition().duration(300)
-      .attr("transform", "translate(" + 0.75 * width + "," + height/2 + ") scale(" + 0.9*zoomScale + ")")
+      .attr("transform", (d) ->
+        "translate(" + 0.5 * width + "," + 0 + ") scale(" + zoomScale + ")"
+      )
+      .select(".name").attr("dy", "1em")
       # Prevent call to svgClick
       d3.event.stopPropagation()
 
     svgClick = ->
-      svg.selectAll(".node").classed("hidden", false)
+      svg.selectAll(".node")
+      .classed("hidden", false)
+      svg.selectAll(".name").attr("dy", "0.35em")
       force.resume()
 
     node = []
@@ -104,8 +109,10 @@ angular.module('metrix.dashboard')
       )
       .style 'fill', 'lightgray'
 
-      projectName.text (d) ->
+      projectName.text((d) ->
         d.name
+      )
+      .attr("class", "name")
 
       node.each((d, i) ->
         d.fixed = false
