@@ -47,8 +47,8 @@ angular
 
     updateData = ->
       for project in projects
-        project.commits += Math.round(Math.random())
+        project.commits += 1 if Math.random() > 0.99
 
     $interval ->
       updateData()
-    , 1000
+    , 100
