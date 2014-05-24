@@ -7,6 +7,8 @@ angular.module('metrix.dashboard')
       node.id
     bubbleName = (node) ->
       node.name
+    bubbleScore = (node) ->
+      node.score
     bubbleSize = (node) ->
       Math.sqrt node.commits
     bubbleColor = (node) ->
@@ -17,7 +19,11 @@ angular.module('metrix.dashboard')
         when false
           return 'rgb(236,24,75)'
     bubbleFillLevel = (node) ->
-      node.coverage
+      switch node.ci
+        when true
+          return node.coverage
+        when false
+          return 0
     bubbleBgColor = (node) ->
       'lightgray'
     bubbleOpacity = (node) ->
@@ -42,19 +48,24 @@ angular.module('metrix.dashboard')
 
       nodeFound = node.filter (d) ->
         if d.id == nodeClicked.id
-          zoomScale = Math.min(height, 0.5*width) / bubbleSize(d)
+          zoomScale = 0.9 * Math.min(height, 0.5*width) / bubbleSize(d)
         d.id == nodeClicked.id
       nodeGroup = nodeFound[0][0]
 
       d3.select(nodeGroup)
       .classed("hidden", false)
       .transition().duration(300)
-      .attr("transform", "translate(" + 0.75 * width + "," + height/2 + ") scale(" + 0.9*zoomScale + ")")
+      .attr("transform", (d) ->
+        "translate(" + 0.5 * width + "," + 0 + ") scale(" + zoomScale + ")"
+      )
+      .select(".name").attr("dy", "1em")
       # Prevent call to svgClick
       d3.event.stopPropagation()
 
     svgClick = ->
-      svg.selectAll(".node").classed("hidden", false)
+      svg.selectAll(".node")
+      .classed("hidden", false)
+      svg.selectAll(".name").attr("dy", "0.35em")
       force.resume()
 
     node = []
@@ -104,8 +115,8 @@ angular.module('metrix.dashboard')
       )
       .style 'fill', 'lightgray'
 
-      projectName.text (d) ->
-        d.name
+      projectName.text(bubbleName)
+      .attr("class", "name")
 
       node.each((d, i) ->
         d.fixed = false
@@ -141,6 +152,12 @@ angular.module('metrix.dashboard')
     .attr("dy", "0.35em")
     .attr("x", 0)
     .attr("y", 0)
+
+    projectScore = node
+    .append 'text'
+    .attr 'x', 0
+    .attr 'y', 0
+    .attr 'class', 'project-score'
 
     gradient = defs
     .selectAll 'linearGradient'
@@ -194,4 +211,10 @@ angular.module('metrix.dashboard')
       circlesContainer
       .style 'opacity', bubbleOpacity
       .classed "offline", (d) -> return !d.online
+
+      projectScore.text bubbleScore
+      .attr 'dy', (d) ->
+        0.55 * bubbleSize(d) / scaleFactor
+      .attr 'font-size', (d) ->
+        ( 1.5 * bubbleSize(d) / scaleFactor ) + 'px'
     , true
