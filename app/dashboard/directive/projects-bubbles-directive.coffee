@@ -33,7 +33,7 @@ angular.module('metrix.dashboard')
       # Get max value
       maxValue = getMaxFromNodes data
       # Create scaleFactor that will ensure circles will fit in the window
-      return maxValue / Math.min(window.innerWidth, window.innerHeight) * data.length
+      return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * data.length
 
     nodeClick = (nodeClicked) ->
       force.stop()
@@ -100,7 +100,7 @@ angular.module('metrix.dashboard')
 
       fillCircle
       .attr("r", (d) ->
-          (bubbleSize(d) / scaleFactor) - 5
+          (bubbleSize(d) - 8) / scaleFactor
       )
       .style 'fill', 'lightgray'
 
@@ -128,9 +128,11 @@ angular.module('metrix.dashboard')
     svg.selectAll(".node").on "click", nodeClick
     svg.on "click", svgClick
 
-    circle = node.append("circle")
+    circlesContainer = node.append("g").attr("class", "circles-container")
 
-    fillCircle = node.append("circle").attr("class", "fill-circle")
+    circle = circlesContainer.append("circle")
+
+    fillCircle = circlesContainer.append("circle").attr("class", "fill-circle")
 
     projectName = node
     .append("text")
@@ -178,16 +180,15 @@ angular.module('metrix.dashboard')
           d3.select(foundNode[0][0])
           .select(".fill-circle")
           .transition("ease").duration(100)
-#          .style("stroke-width", "4px")
           .style 'fill', 'white'
           .transition("ease").duration(800)
           .delay(100)
           .style 'fill', 'lightgray'
-#          .style("stroke-width", "0px")
 
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
       .style 'fill', (d) -> 'url(#gradient-'+bubbleId(d)+')'
+      circlesContainer
       .style 'opacity', bubbleOpacity
     , true

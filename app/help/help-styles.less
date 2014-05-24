@@ -1,41 +1,23 @@
 .help {
-  position: absolute;
-  margin: @padding-base-horizontal;
-  top: 0;
-  right: 0;
+  .text-center;
+  position: fixed;
+  color: @white;
 
-  .help-button {
-    .btn;
-    .btn-link;
-
-    i {
-      .glyphicon;
-      .glyphicon-question-sign;
-    }
-  }
-}
-
-.caption {
-  .popover;
-
-  .caption-title {
-    .popover-title;
+  .title {
+    text-transform: uppercase;
+    font-family: 'Raleway';
+    font-weight: 100;
   }
 
-  .caption-content{
-    .popover-content;
-    .text-center;
+  svg {
+    vertical-align: sub;
+  }
 
-    svg {
-      vertical-align: sub;
+  .caption-category {
+    h4 {
+      font-size: @font-size-h4;
+      font-weight: 400;
     }
-
-    p {
-      white-space: nowrap;
-
-      &.caption-category {
-        font-weight: bold;
-      }
-    }
+    border-top: 1px solid lightgray;
   }
 }

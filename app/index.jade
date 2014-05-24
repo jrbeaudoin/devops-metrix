@@ -10,14 +10,9 @@ html(lang='fr', xmlns:ng='http://angularjs.org', id='ng-app', ng-app='devops-met
     meta(name='apple-mobile-web-app-status-bar-style', content='black')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
   body
-    h1.title
-      | Devops
-      br
-      | Metrix
-
     .help(ng-include='"help/view/help-view.html"')
 
-    div(ng-view)
+    div.dashboard(ng-view)
 
     script(src='js/vendor.js')
     script(src='js/app.templates.js')

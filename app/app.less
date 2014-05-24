@@ -3,30 +3,29 @@
 @import '@{bootstrap-path}/bootstrap';
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:100,400);
-@body-bg: @gray-lighter;
+@font-family-base: Raleway;
+@body-bg: #6D6C75;
 @white: #F4FAFF;
 
 html {
-  background: #6D6C75;
+  #gradient.radial( lighten(@body-bg, 15), @body-bg);
   background-attachment: fixed;
   min-height: 100%;
 
   body {
     background: transparent;
   }
-
-  .title {
-    .page-header;
-    color: @white;
-    position: absolute;
-    margin: @padding-base-horizontal;
-    top: 0;
-    left: 0;
-    .text-center;
-    text-transform: uppercase;
-    font-family: 'Raleway';
-    font-weight: 100;
-    border: none;
+  
+  .dashboard {
+    .make-xs-column(12);
+    .make-sm-column(9);
+    .make-md-column(10);
+  }
+  
+  .help {
+    .make-sm-column(3);
+    .make-md-column(2);
+    .hidden-xs;
   }
 }
 
