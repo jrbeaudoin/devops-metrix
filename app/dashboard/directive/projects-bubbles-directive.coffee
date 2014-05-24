@@ -1,6 +1,6 @@
 angular.module('metrix.dashboard')
 
-.directive 'metrixProjectsBubbles', ($rootScope, $location) ->
+.directive 'metrixProjectsBubbles', ($rootScope) ->
   template: "<svg></svg>"
   link: ($scope, $element) ->
     bubbleId = (node) ->
@@ -59,7 +59,7 @@ angular.module('metrix.dashboard')
       d3.select(nodeGroup)
       .classed("hidden", false)
       .transition().duration(300)
-      .attr("transform", (d) ->
+      .attr("transform", ->
         "translate(" + 0.5 * width + "," + 0 + ") scale(" + zoomScale + ")"
       )
       .select(".name").attr("dy", "1em")
@@ -150,6 +150,8 @@ angular.module('metrix.dashboard')
     circlesContainer = node.append("g").attr("class", "circles-container")
 
     circle = circlesContainer.append("circle")
+    .style 'fill', (d) ->
+      'url(#gradient-' + bubbleId(d) + ')'
 
     fillCircle = circlesContainer.append("circle").attr("class", "fill-circle")
 
@@ -178,10 +180,11 @@ angular.module('metrix.dashboard')
     .attr 'y2', '0%'
 
     gradient.append 'stop'
+    .attr 'class', 'fg-stop'
     .attr 'offset', bubbleFillLevel
     .attr 'stop-color', bubbleColor
     gradient.append 'stop'
-    .attr 'offset', bubbleFillLevel
+    .attr 'class', 'bg-stop'
     .attr 'stop-color', bubbleBgColor
 
     update chartData
@@ -214,10 +217,18 @@ angular.module('metrix.dashboard')
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
-      .style 'fill', (d) -> 'url(#gradient-'+bubbleId(d)+')'
       circlesContainer
       .style 'opacity', bubbleOpacity
       .classed "offline", (d) -> return !d.online
+
+      gradient
+      .selectAll '.fg-stop'
+      .attr 'offset', bubbleFillLevel
+      .attr 'stop-color', bubbleColor
+
+      gradient
+      .selectAll '.bg-stop'
+      .attr 'offset', bubbleFillLevel
 
       projectScore.text bubbleScore
       .attr 'dy', (d) ->

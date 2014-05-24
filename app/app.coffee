@@ -76,9 +76,9 @@ angular
           "contributors": randomGaussInt 8, 3
           "commits": randomInt 200, 10000
           "deployedOn": new Date()
-          "ci": Math.random() > 0.1
+          "ci": ( Math.random() > 0.1 )
           "ciStatus": not (i % 4 == 0)
-          "coverage": randomGauss 0.5, 0.5
+          "coverage": Math.min Math.max(0, randomGauss 0.5, 0.4), 1
           "online": true
       for project in projects
         project.score = computeScore project
@@ -91,7 +91,7 @@ angular
         if Math.random() > 0.99
           project.commits += 1
           project.ciStatus = (Math.random() > 0.5) if Math.random() > 0.7
-#          project.coverage = project.coverage + randomGauss 0, 0.5
+          project.coverage = Math.min Math.max(0, project.coverage + randomGauss 0, 0.05), 1
           project.updated = true
         if Math.random() > 0.995
           project.deployedOn = new Date()
