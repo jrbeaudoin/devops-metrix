@@ -4,9 +4,10 @@
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
 @body-bg: @gray-lighter;
+@white: #F4FAFF;
 
 html {
-  #gradient.radial(lighten(@body-bg, 7), darken(@body-bg, 7));
+  #gradient.radial(#868D9E, #313741);
   background-attachment: fixed;
   min-height: 100%;
 
@@ -16,6 +17,7 @@ html {
 
   .title {
     .page-header;
+    color: @white;
     position: absolute;
     margin: @padding-base-horizontal;
     top: 0;
