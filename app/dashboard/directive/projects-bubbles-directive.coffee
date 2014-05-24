@@ -12,9 +12,10 @@ angular.module('metrix.dashboard')
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
-          return '#609000'
+#          return 'rgb(20,201,114)'
+          return 'rgb(20,231,134)'
         when false
-          return '#F00000'
+          return 'rgb(236,24,75)'
     bubbleFillLevel = (node) ->
       node.coverage
     bubbleBgColor = (node) ->
@@ -63,6 +64,7 @@ angular.module('metrix.dashboard')
       node.data(chartData).enter()
       node.data(chartData).exit().remove()
       circle.data(chartData)
+      fillCircle.data(chartData)
       projectName.data(chartData)
 
       circle
@@ -73,6 +75,12 @@ angular.module('metrix.dashboard')
       .style 'fill', (d) ->
         'url(#gradient-' + bubbleId(d) + ')'
       .style 'opacity', bubbleOpacity
+
+      fillCircle
+      .attr("r", (d) ->
+          (bubbleSize(d) / scaleFactor) - 5
+      )
+      .style 'fill', 'lightgray'
 
       projectName.text (d) ->
         d.name
@@ -101,9 +109,12 @@ angular.module('metrix.dashboard')
     )
 
     circle = node.append("circle")
+
+    fillCircle = node.append("circle").attr("class", "fill-circle")
+
     projectName = node
     .append("text")
-    .attr("dy", "0em")
+    .attr("dy", "0.35em")
     .attr("x", 0)
     .attr("y", 0)
 
@@ -145,12 +156,14 @@ angular.module('metrix.dashboard')
         if foundNode
           updatedNodes.push foundNode[0][0]
           d3.select(foundNode[0][0])
-          .select("circle")
+          .select(".fill-circle")
           .transition("ease").duration(100)
-          .style("stroke-width", "4px")
+#          .style("stroke-width", "4px")
+          .style 'fill', 'white'
           .transition("ease").duration(800)
           .delay(100)
-          .style("stroke-width", "0px")
+          .style 'fill', 'lightgray'
+#          .style("stroke-width", "0px")
 
       circle
       .attr "r", (d) ->
