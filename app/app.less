@@ -2,13 +2,28 @@
 @bootstrap-path: '@{bower-components}/bootstrap/less';
 @import '@{bootstrap-path}/bootstrap';
 
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
 @body-bg: lighten(@gray-lighter, 3);
+@headings-font-family: Raleway;
+
 html {
   #gradient.radial(lighten(@body-bg,3), @body-bg);
   height: 100%;
 
   body {
     background: transparent;
+  }
+
+  .title {
+    .page-header;
+    position: absolute;
+    margin: @padding-base-horizontal;
+    top: 0;
+    left: 0;
+    .text-center;
+    text-transform: uppercase;
+    font-weight: 400;
+    border: none;
   }
 }
 
