@@ -2,7 +2,6 @@ angular
 .module('devops-metrix', [
   'ng'
   'ngRoute'
-
   'metrix.dashboard'
   'metrix.help'
   ])
