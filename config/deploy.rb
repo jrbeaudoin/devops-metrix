@@ -1,5 +1,5 @@
 set :application, "devops-metrix"
-set :repo_url,    "git@github.com:jrbeaudouin/devops-metrix.git"
+set :repo_url,    "git@github.com:jrbeaudoin/devops-metrix.git"
 
 set :stages, [:staging, :production]
 set :default_stage, :staging
@@ -14,7 +14,7 @@ namespace :deploy do
   desc "Install dependencies and build app"
   task :updated do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "cd #{release_path} && npm install --quiet"
+      execute "cd #{release_path} && npm install --quiet && npm start"
     end
   end
 end
