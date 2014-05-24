@@ -51,6 +51,7 @@ angular
       for project in projects
         project.commits += 1 if Math.random() > 0.99
         project.deployedOn = new Date() if Math.random() > 0.995
+        project.ciStatus = (Math.random() > 0.5) if Math.random() > 0.998
 
     $interval ->
       updateData()
