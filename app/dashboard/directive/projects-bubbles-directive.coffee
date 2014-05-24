@@ -7,6 +7,8 @@ angular.module('metrix.dashboard')
       node.id
     bubbleName = (node) ->
       node.name
+    bubbleScore = (node) ->
+      node.score
     bubbleSize = (node) ->
       Math.sqrt node.commits
     bubbleColor = (node) ->
@@ -108,8 +110,7 @@ angular.module('metrix.dashboard')
       )
       .style 'fill', 'lightgray'
 
-      projectName.text (d) ->
-        d.name
+      projectName.text bubbleName
 
       node.each((d, i) ->
         d.fixed = false
@@ -145,6 +146,12 @@ angular.module('metrix.dashboard')
     .attr("dy", "0.35em")
     .attr("x", 0)
     .attr("y", 0)
+
+    projectScore = node
+    .append 'text'
+    .attr 'x', 0
+    .attr 'y', 0
+    .attr 'class', 'project-score'
 
     gradient = defs
     .selectAll 'linearGradient'
@@ -198,4 +205,10 @@ angular.module('metrix.dashboard')
       circlesContainer
       .style 'opacity', bubbleOpacity
       .classed "offline", (d) -> return !d.online
+
+      projectScore.text bubbleScore
+      .attr 'dy', (d) ->
+        0.55 * bubbleSize(d) / scaleFactor
+      .attr 'font-size', (d) ->
+        ( 1.5 * bubbleSize(d) / scaleFactor ) + 'px'
     , true
