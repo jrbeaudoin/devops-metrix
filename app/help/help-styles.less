@@ -1,41 +1,25 @@
 .help {
-  position: absolute;
-  margin: @padding-base-horizontal;
-  top: 0;
-  right: 0;
+  .text-center;
+  position: fixed;
 
-  .help-button {
-    .btn;
-    .btn-link;
-
-    i {
-      .glyphicon;
-      .glyphicon-question-sign;
-    }
-  }
-}
-
-.caption {
-  .popover;
-
-  .caption-title {
-    .popover-title;
+  .title {
+    .page-header;
+    color: @white;
+    margin: @padding-base-horizontal;
+    text-transform: uppercase;
+    font-family: 'Raleway';
+    font-weight: 100;
   }
 
-  .caption-content{
-    .popover-content;
-    .text-center;
+  svg {
+    vertical-align: sub;
+  }
 
-    svg {
-      vertical-align: sub;
-    }
+  p {
+    white-space: nowrap;
 
-    p {
-      white-space: nowrap;
-
-      &.caption-category {
-        font-weight: bold;
-      }
+    &.caption-category {
+      font-weight: bold;
     }
   }
 }

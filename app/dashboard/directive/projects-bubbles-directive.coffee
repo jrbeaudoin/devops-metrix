@@ -33,7 +33,7 @@ angular.module('metrix.dashboard')
       # Get max value
       maxValue = getMaxFromNodes data
       # Create scaleFactor that will ensure circles will fit in the window
-      return maxValue / Math.min(window.innerWidth, window.innerHeight) * data.length
+      return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * data.length
 
     node = []
     height = $element[0].offsetHeight
