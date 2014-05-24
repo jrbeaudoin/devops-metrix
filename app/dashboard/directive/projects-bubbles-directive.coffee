@@ -42,7 +42,7 @@ angular.module('metrix.dashboard')
 
       nodeFound = node.filter (d) ->
         if d.id == nodeClicked.id
-          zoomScale = Math.min(0.5*height, width) / bubbleSize(d)
+          zoomScale = Math.min(height, 0.5*width) / bubbleSize(d)
         d.id == nodeClicked.id
       nodeGroup = nodeFound[0][0]
 
