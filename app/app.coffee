@@ -46,6 +46,7 @@ angular
           "commits": randomInt(200, 10000)
           "deployedOn": new Date()
           "ciStatus": not (i % 4 == 0)
+          "coverage": Math.random()
 
     createData()
 
