@@ -8,9 +8,9 @@ angular.module('metrix.dashboard')
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
-          return 'green'
+          return '#5FF06B'
         when false
-          return 'red'
+          return '#FF3C48'
     bubbleOpacity = (node) ->
       now = new Date()
       maxAgeWithoutDeploy = 1000 * 30 # milliseconds
