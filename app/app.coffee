@@ -43,6 +43,7 @@ angular
           "contributors": randomGauss(8, 3)
           "commits": randomInt(200, 10000)
           "deployedOn": new Date()
+          "ciStatus": not (i % 4 == 0)
 
     createData()
 

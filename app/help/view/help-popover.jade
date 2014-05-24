@@ -5,6 +5,7 @@
     p.caption-category Project
     svg(height=30, width=30)
       circle(cx='15', cy='15', r='8', fill='gray')
+    
     hr
 
     p.caption-category Last delivery
@@ -12,10 +13,19 @@
       circle(cx='15', cy='15', r='8', fill='grey', opacity='0.2')
       circle(cx='45', cy='15', r='8', fill='grey', opacity='1')
     p old / new
+
     hr
 
     p.caption-category Project activity (commits)
     svg(height=40, width=60)
-      circle(cx='15', cy='15', r='6', fill='grey', opacity='1')
-      circle(cx='45', cy='15', r='10', fill='grey', opacity='1')
+      circle(cx='15', cy='15', r='6', fill='grey')
+      circle(cx='45', cy='15', r='10', fill='grey')
     p a few / a lot
+
+    hr
+
+    p.caption-category Continuous integration
+    svg(height=30, width=60)
+      circle(cx='15', cy='15', r='8', fill='red')
+      circle(cx='45', cy='15', r='8', fill='green')
+    p failed / passed

@@ -5,6 +5,12 @@ angular.module('metrix.dashboard')
   link: ($scope, $element) ->
     bubbleSize = (node) ->
       Math.sqrt node.commits
+    bubbleColor = (node) ->
+      switch node.ciStatus
+        when true
+          return 'green'
+        when false
+          return 'red'
     bubbleOpacity = (node) ->
       now = new Date()
       maxAgeWithoutDeploy = 1000 * 30 # milliseconds
@@ -55,8 +61,10 @@ angular.module('metrix.dashboard')
       .attr("r", (d) ->
         bubbleSize(d) / scaleFactor
       )
-      .style("fill", "gray")
-      .style 'opacity', (d) -> bubbleOpacity d
+      .style 'fill', (d) ->
+        bubbleColor d
+      .style 'opacity', (d) ->
+        bubbleOpacity d
 
       projectName.text (d) ->
         d.name
@@ -99,6 +107,7 @@ angular.module('metrix.dashboard')
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
-      .style "fill", "gray"
+      .style 'fill', (d) ->
+        bubbleColor d
       .style 'opacity', (d) -> bubbleOpacity d
     , true
