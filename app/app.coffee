@@ -66,9 +66,9 @@ angular
           project.deployedOn = new Date()
           project.updated = true
         if project.updated
-          if Math.random() > 0.6 and !project.online
+          if Math.random() > 0.4 and !project.online
             project.online = true
-          if Math.random() > 0.9 and project.online
+          if Math.random() > 0.93 and project.online
             project.online = false
 
 
