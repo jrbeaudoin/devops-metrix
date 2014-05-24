@@ -42,12 +42,14 @@ angular
           "name": "projet " + i
           "contributors": randomGauss(8, 3)
           "commits": randomInt(200, 10000)
+          "deployedOn": new Date()
 
     createData()
 
     updateData = ->
       for project in projects
         project.commits += 1 if Math.random() > 0.99
+        project.deployedOn = new Date() if Math.random() > 0.995
 
     $interval ->
       updateData()
