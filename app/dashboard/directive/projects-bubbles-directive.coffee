@@ -33,7 +33,29 @@ angular.module('metrix.dashboard')
       # Get max value
       maxValue = getMaxFromNodes data
       # Create scaleFactor that will ensure circles will fit in the window
-      return maxValue / Math.min(window.innerWidth, window.innerHeight) * data.length
+      return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * data.length
+
+    nodeClick = (nodeClicked) ->
+      force.stop()
+      svg.selectAll(".node").classed("hidden", true)
+      zoomScale = 3
+
+      nodeFound = node.filter (d) ->
+        if d.id == nodeClicked.id
+          zoomScale = Math.min(height, 0.5*width) / bubbleSize(d)
+        d.id == nodeClicked.id
+      nodeGroup = nodeFound[0][0]
+
+      d3.select(nodeGroup)
+      .classed("hidden", false)
+      .transition().duration(300)
+      .attr("transform", "translate(" + 0.75 * width + "," + height/2 + ") scale(" + 0.9*zoomScale + ")")
+      # Prevent call to svgClick
+      d3.event.stopPropagation()
+
+    svgClick = ->
+      svg.selectAll(".node").classed("hidden", false)
+      force.resume()
 
     node = []
     height = $element[0].offsetHeight
@@ -101,12 +123,12 @@ angular.module('metrix.dashboard')
     .enter()
     .append("g")
     .attr("class", "node")
-    .append("svg:a")
     .call(force.drag)
 
-    node.attr("xlink:href", (d) ->
-      "/#/project/" + d.name
-    )
+    svg.selectAll(".node").on "click", (d) ->
+      if (d3.event.defaultPrevented) then return
+      nodeClick(d)
+    svg.on "click", svgClick
 
     circlesContainer = node.append("g").attr("class", "circles-container")
 
