@@ -3,6 +3,10 @@ angular.module('metrix.dashboard')
 .directive 'metrixProjectsBubbles', ($rootScope, $location) ->
   template: "<svg></svg>"
   link: ($scope, $element) ->
+    bubbleId = (node) ->
+      node.id
+    bubbleName = (node) ->
+      node.name
     bubbleSize = (node) ->
       Math.sqrt node.commits
     bubbleColor = (node) ->
@@ -11,6 +15,10 @@ angular.module('metrix.dashboard')
           return '#609000'
         when false
           return '#F00000'
+    bubbleFillLevel = (node) ->
+      node.coverage
+    bubbleBgColor = (node) ->
+      'lightgray'
     bubbleOpacity = (node) ->
       now = new Date()
       maxAgeWithoutDeploy = 1000 * 30 # milliseconds
@@ -32,6 +40,7 @@ angular.module('metrix.dashboard')
     repulsion = 700
 
     svg = d3.select($element[0]).select("svg")
+    defs = svg.append 'svg:defs'
     svg.attr("width", width).attr("height", height)
     force = d3.layout.force().gravity(0.5).friction(.1).size([
       width
@@ -62,9 +71,8 @@ angular.module('metrix.dashboard')
         bubbleSize(d) / scaleFactor
       )
       .style 'fill', (d) ->
-        bubbleColor d
-      .style 'opacity', (d) ->
-        bubbleOpacity d
+        'url(#gradient-' + bubbleId(d) + ')'
+      .style 'opacity', bubbleOpacity
 
       projectName.text (d) ->
         d.name
@@ -85,7 +93,12 @@ angular.module('metrix.dashboard')
     .enter()
     .append("g")
     .attr("class", "node")
+    .append("svg:a")
     .call(force.drag)
+
+    node.attr("xlink:href", (d) ->
+      "/#/project/" + d.name
+    )
 
     circle = node.append("circle")
     projectName = node
@@ -94,10 +107,26 @@ angular.module('metrix.dashboard')
     .attr("x", 0)
     .attr("y", 0)
 
+    gradient = defs
+    .selectAll 'linearGradient'
+    .data(chartData)
+    .enter()
+    .append 'svg:linearGradient'
+    .attr 'id', (d) -> 'gradient-'+bubbleId d
+    .attr 'x1', '0%'
+    .attr 'y1', '100%'
+    .attr 'x2', '0%'
+    .attr 'y2', '0%'
+
+    gradient.append 'stop'
+    .attr 'offset', bubbleFillLevel
+    .attr 'stop-color', bubbleColor
+    gradient.append 'stop'
+    .attr 'offset', bubbleFillLevel
+    .attr 'stop-color', bubbleBgColor
+
     update chartData
 
-    node.on "click", (d) ->
-      $location.url("/project/" + d.name)
     force.on "tick", ->
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
@@ -125,7 +154,6 @@ angular.module('metrix.dashboard')
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
-      .style 'fill', (d) ->
-        bubbleColor d
-      .style 'opacity', (d) -> bubbleOpacity d
+      .style 'fill', (d) -> 'url(#gradient-'+bubbleId(d)+')'
+      .style 'opacity', bubbleOpacity
     , true
