@@ -1,6 +1,6 @@
-# La pépinière: docs
+# Devops Metrix
 
-Documentation of prepackaged modules for Pepinière websites
+Monitor useful metrics of an IT Department's projects
 
 # Set-up
 
