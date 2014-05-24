@@ -37,7 +37,7 @@ angular
     projects = $rootScope.projects
 
     createData = ->
-      for i in [0..100]
+      for i in [0..50]
         projects.push
           "name": "projet " + i
           "contributors": randomGauss(8, 3)
