@@ -3,19 +3,51 @@ metrix-projects-bubbles,
 
   svg {
     text {
-      fill: #3A393F;
+      fill: #636269;
       text-anchor: middle;
       font-family: 'Raleway';
-      font-weight: 400;
+      font-weight: 500;
     }
 
-    a, a:hover {
+    a, a:hover, a:focus {
       text-decoration: none;
     }
 
     circle {
       stroke-width: 0px;
       stroke: rgba(255, 255, 255, 0.7);
+    }
+
+    .project-score {
+      font-family: @font-family-sans-serif;
+      .text-muted;
+      opacity: 0.05;
+    }
+  }
+
+  .circles-container.offline {
+    -webkit-animation: break 0.6s;
+    -webkit-animation-fill-mode: forwards;
+
+    @-webkit-keyframes break {
+      0% {
+        -webkit-clip-path: polygon(62% -10%, 62% 30%, 65% 45%, 50% 60%, 60% 45%, 62% 30%, 60% -10%, 110% -10%, 110% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% -10%);
+      }
+      35% {
+        -webkit-clip-path: polygon(60% -10%, 60% 30%, 67% 45%, 50% 60%, 67% 45%, 60% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% -10%);
+      }
+      40% {
+        -webkit-clip-path: polygon(60% -10%, 60% 30%, 67% 45%, 50% 60%, 67% 45%, 62% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% 110%, -10% -10%);
+      }
+      65% {
+        -webkit-clip-path: polygon(60% -10%, 60% 30%, 67% 45%, 50% 60%, 67% 45%, 65% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 118%, 26% 84%, 33% 70%, 26% 84%, -10% 82%, -10% -10%);
+      }
+      75% {
+        -webkit-clip-path: polygon(60% -10%, 60% 30%, 67% 45%, 50% 60%, 67% 45%, 65% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 118%, 26% 84%, 33% 70%, 26% 84%, -10% 82%, -10% -10%);
+      }
+      100% {
+        -webkit-clip-path: polygon(60% -10%, 60% 30%, 65% 45%, 50% 60%, 70% 45%, 65% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 118%, 26% 84%, 33% 70%, 25% 83%, -10% 82%, -10% -10%);
+      }
     }
   }
 }
