@@ -23,3 +23,17 @@
     circle(cx='15', cy='15', r='8', fill='rgb(236,24,75)')
     circle(cx='45', cy='15', r='8', fill='rgb(20,231,134)')
   p failed / passed
+
+.caption-category
+  h4 Code coverage
+  svg(height=30, width=60)
+    defs
+      lineargradient#gradient-empty(x1='0%', y1='100%', x2='0%', y2='0%')
+        stop(offset='0.3', stop-color='rgb(20,231,134)')
+        stop(offset='0.3', stop-color='lightgray')
+      lineargradient#gradient-full(x1='0%', y1='100%', x2='0%', y2='0%')
+        stop(offset='0.7', stop-color='rgb(20,231,134)')
+        stop(offset='0.7', stop-color='lightgray')
+    circle(cx='15', cy='15', r='8', fill='url(#gradient-empty)')
+    circle(cx='45', cy='15', r='8', fill='url(#gradient-full)')
+  p weak / strong
