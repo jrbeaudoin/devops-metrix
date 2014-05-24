@@ -5,6 +5,8 @@ angular.module('metrix.dashboard')
   link: ($scope, $element) ->
     bubbleSize = (node) ->
       Math.sqrt node.commits
+    bubbleOpacity = (node) ->
+      0.5
     getMaxFromNodes = (data, valueName = "value") ->
       maxValue = -Infinity
       for node in data
@@ -36,7 +38,6 @@ angular.module('metrix.dashboard')
           y: d.y
         d.fixed = true
 
-      #scaleFactor = getScaleFactor chartData
       scaleFactor = getScaleFactor chartData
       force.charge((d) ->
         - (bubbleSize(d) / scaleFactor) * repulsion
