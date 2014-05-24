@@ -19,7 +19,7 @@ angular.module('metrix.dashboard')
     node = []
     height = $element[0].offsetHeight
     width = $element[0].offsetWidth
-    repulsion = 3000
+    repulsion = 700
 
     svg = d3.select($element[0]).select("svg")
     svg.attr("width", width).attr("height", height)
