@@ -3,16 +3,18 @@ angular.module('metrix.dashboard')
 .directive 'metrixProjectsBubbles', ($rootScope) ->
   template: "<svg></svg>"
   link: ($scope, $element) ->
+    bubbleSize = (node) ->
+      node.commits
     getMaxFromNodes = (data, valueName = "value") ->
       maxValue = -Infinity
       for node in data
-        maxValue = Math.max(maxValue, node.commits)
+        maxValue = Math.max(maxValue, bubbleSize node)
       return maxValue
     getScaleFactor = (data) ->
       # Get max value
       maxValue = getMaxFromNodes data
       # Create scaleFactor that will ensure circles will fit in the window
-      return 5 * Math.sqrt(maxValue) / Math.min(window.innerWidth, window.innerHeight)
+      return maxValue / Math.min(window.innerWidth, window.innerHeight) * data.length
 
     node = []
     height = $element[0].offsetHeight
@@ -35,9 +37,9 @@ angular.module('metrix.dashboard')
         d.fixed = true
 
       #scaleFactor = getScaleFactor chartData
-      scaleFactor = 100
+      scaleFactor = getScaleFactor chartData
       force.charge((d) ->
-        - (d.commits / scaleFactor) * repulsion
+        - (bubbleSize(d) / scaleFactor) * repulsion
       ).nodes(chartData)
 
       node.data(chartData).enter()
@@ -48,7 +50,7 @@ angular.module('metrix.dashboard')
       circle
       .transition().ease("cubic-in-out")
       .attr("r", (d) ->
-        d.commits / scaleFactor
+        bubbleSize(d) / scaleFactor
       )
       .style("fill", "gray")
 
