@@ -21,7 +21,8 @@
     "lodash": "*",
     "jquery": "*",
     "bootstrap": "*",
-    "angular": "*"
+    "angular": "*",
+    "angular-route": "~1.2.16"
   },
   "devDependencies": {
     "angular-mocks": "*"

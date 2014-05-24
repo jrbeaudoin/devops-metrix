@@ -9,8 +9,7 @@ angular
     '$routeProvider'
     '$httpProvider'
     '$compileProvider'
-    '$translateProvider'
-    ($routeProvider, $httpProvider, $compileProvider, $translateProvider) ->
+    ($routeProvider, $httpProvider, $compileProvider) ->
       $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|tel|http|https):/)
 
       $routeProvider.otherwise
