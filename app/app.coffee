@@ -48,9 +48,12 @@ angular
           "contributors": randomGaussInt 8, 3
           "commits": randomInt 200, 10000
           "deployedOn": new Date()
+          "ci": Math.random() > 0.1
           "ciStatus": not (i % 4 == 0)
           "coverage": randomGauss 0.5, 0.5
           "online": true
+      for project in projects
+        project.score = 0
 
     createData()
 

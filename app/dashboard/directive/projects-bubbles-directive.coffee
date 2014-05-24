@@ -17,7 +17,11 @@ angular.module('metrix.dashboard')
         when false
           return 'rgb(236,24,75)'
     bubbleFillLevel = (node) ->
-      node.coverage
+      switch node.ci
+        when true
+          return node.coverage
+        when false
+          return 0
     bubbleBgColor = (node) ->
       'lightgray'
     bubbleOpacity = (node) ->
