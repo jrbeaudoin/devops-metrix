@@ -23,7 +23,8 @@
     "bootstrap": "*",
     "angular": "*",
     "angular-route": "~1.2.16",
-    "d3": "~3.4"
+    "d3": "~3.4",
+    "angular-strap": "~2.0.2"
   },
   "devDependencies": {
     "angular-mocks": "*"
