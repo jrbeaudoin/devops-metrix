@@ -42,6 +42,8 @@ angular.module('metrix.dashboard')
       return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * data.length
 
     nodeClick = (nodeClicked) ->
+      $scope.zoomed = true
+      $scope.project = nodeClicked
       force.stop()
       svg.selectAll(".node").classed("hidden", true)
       zoomScale = 3
@@ -51,6 +53,8 @@ angular.module('metrix.dashboard')
           zoomScale = 0.9 * Math.min(height, 0.5*width) / bubbleSize(d)
         d.id == nodeClicked.id
       nodeGroup = nodeFound[0][0]
+
+      svg.classed("zoom", true)
 
       d3.select(nodeGroup)
       .classed("hidden", false)
@@ -63,6 +67,8 @@ angular.module('metrix.dashboard')
       d3.event.stopPropagation()
 
     svgClick = ->
+      $scope.zoomed = false
+      svg.classed("zoom", false)
       svg.selectAll(".node")
       .classed("hidden", false)
       svg.selectAll(".name").attr("dy", "0.35em")

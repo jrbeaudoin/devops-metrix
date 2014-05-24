@@ -1,2 +1,23 @@
-div(ng-if="onZoom")
-div(metrix-projects-bubbles)
+div(metrix-projects-bubbles, ng-class="{'zoom': zoomed}")
+.project-details(ng-class="{'zoom': zoomed}")
+    p
+        span.title Contributors:
+        span.content {{ project.contributors }}
+    p
+        span.title Commits:
+        span.content {{ project.commits }}
+    p
+        span.title Last deploy:
+        span.content {{ project.deployedOn | date: medium }}
+    p
+        span.title Continuous Integration:
+        span.content {{ project.ci }}
+    p
+        span.title Tests coverage:
+        span.content {{ 100 * project.coverage | number:0 }}%
+    p
+        span.title Online:
+        span.content {{ project.online }}
+    p
+        span.title Score:
+        span.content {{ project.score }}

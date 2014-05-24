@@ -4,9 +4,10 @@ metrix-projects-bubbles,
   svg {
     text {
       fill: #636269;
-      text-anchor: middle;
       font-family: 'Raleway';
       font-weight: 500;
+      pointer-events: none;
+      text-anchor: middle;
     }
 
     a, a:hover, a:focus {
@@ -14,8 +15,13 @@ metrix-projects-bubbles,
     }
 
     circle {
+      cursor: pointer;
       stroke-width: 0px;
       stroke: rgba(255, 255, 255, 0.7);
+    }
+
+    &.zoom * {
+      pointer-events: none;
     }
 
     .project-score {
@@ -49,5 +55,30 @@ metrix-projects-bubbles,
         -webkit-clip-path: polygon(60% -10%, 60% 30%, 65% 45%, 50% 60%, 70% 45%, 65% 30%, 65% -10%, 110% -10%, 110% 110%, -10% 118%, 26% 84%, 33% 70%, 25% 83%, -10% 82%, -10% -10%);
       }
     }
+  }
+}
+
+.project-details {
+  .transition(all ease 0.3s);
+  color: white;
+  font-size: 1em;
+  height: 0%;
+  margin: 30px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 40%;
+
+  &.zoom {
+    height: 60%;
+    opacity: 1;
+  }
+
+  span.title {
+    font-weight: bold;
+  }
+
+  span.content {
+    padding-left: 0.5em;
   }
 }
