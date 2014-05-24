@@ -108,9 +108,11 @@ angular.module('metrix.dashboard')
       "/#/project/" + d.name
     )
 
-    circle = node.append("circle")
+    circlesContainer = node.append("g").attr("class", "circles-container")
 
-    fillCircle = node.append("circle").attr("class", "fill-circle")
+    circle = circlesContainer.append("circle")
+
+    fillCircle = circlesContainer.append("circle").attr("class", "fill-circle")
 
     projectName = node
     .append("text")
@@ -158,16 +160,15 @@ angular.module('metrix.dashboard')
           d3.select(foundNode[0][0])
           .select(".fill-circle")
           .transition("ease").duration(100)
-#          .style("stroke-width", "4px")
           .style 'fill', 'white'
           .transition("ease").duration(800)
           .delay(100)
           .style 'fill', 'lightgray'
-#          .style("stroke-width", "0px")
 
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
       .style 'fill', (d) -> 'url(#gradient-'+bubbleId(d)+')'
+      circlesContainer
       .style 'opacity', bubbleOpacity
     , true
