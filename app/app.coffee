@@ -32,7 +32,10 @@ angular
       parseInt(Math.random() * (max - min) + min)
 
     randomGauss = (mean, stdev) ->
-      return Math.round(rnd_snd()*stdev+mean)
+      return rnd_snd()*stdev+mean
+
+    randomGaussInt = (mean, stdev) ->
+      return Math.round randomGauss mean, stdev
 
     $rootScope.projects = []
     projects = $rootScope.projects
@@ -42,11 +45,11 @@ angular
         projects.push
           "id": i
           "name": randomNames[i]
-          "contributors": randomGauss(8, 3)
-          "commits": randomInt(200, 10000)
+          "contributors": randomGaussInt 8, 3
+          "commits": randomInt 200, 10000
           "deployedOn": new Date()
           "ciStatus": not (i % 4 == 0)
-          "coverage": Math.random()
+          "coverage": randomGauss 0.5, 0.5
 
     createData()
 
@@ -55,12 +58,12 @@ angular
         project.updated = false
         if Math.random() > 0.99
           project.commits += 1
+          project.ciStatus = (Math.random() > 0.5) if Math.random() > 0.7
+#          project.coverage = project.coverage + randomGauss 0, 0.5
           project.updated = true
         if Math.random() > 0.995
           project.deployedOn = new Date()
           project.updated = true
-        if Math.random() > 0.998
-          project.ciStatus = (Math.random() > 0.5)
 
     $interval ->
       updateData()

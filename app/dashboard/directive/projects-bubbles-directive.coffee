@@ -18,7 +18,7 @@ angular.module('metrix.dashboard')
     bubbleFillLevel = (node) ->
       node.coverage
     bubbleBgColor = (node) ->
-      'gray'
+      'lightgray'
     bubbleOpacity = (node) ->
       now = new Date()
       maxAgeWithoutDeploy = 1000 * 30 # milliseconds
@@ -119,16 +119,10 @@ angular.module('metrix.dashboard')
     .attr 'y2', '0%'
 
     gradient.append 'stop'
-    .attr 'offset', 0
-    .attr 'stop-color', bubbleColor
-    gradient.append 'stop'
     .attr 'offset', bubbleFillLevel
     .attr 'stop-color', bubbleColor
     gradient.append 'stop'
     .attr 'offset', bubbleFillLevel
-    .attr 'stop-color', bubbleBgColor
-    gradient.append 'stop'
-    .attr 'offset', 100
     .attr 'stop-color', bubbleBgColor
 
     update chartData
