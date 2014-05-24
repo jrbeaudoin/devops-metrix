@@ -4,7 +4,7 @@ angular.module('metrix.dashboard')
   template: "<svg></svg>"
   link: ($scope, $element) ->
     bubbleSize = (node) ->
-      node.commits
+      Math.sqrt node.commits
     getMaxFromNodes = (data, valueName = "value") ->
       maxValue = -Infinity
       for node in data
