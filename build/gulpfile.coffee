@@ -13,6 +13,7 @@ templateCache = require 'gulp-angular-templatecache'
 uglify        = require 'gulp-uglify'
 filesize      = require 'gulp-filesize'
 filter        = require 'gulp-filter'
+serve         = require 'gulp-serve'
 
 parameters    = require '../config/parameters.coffee'
 
@@ -94,3 +95,5 @@ gulp.task 'watch', ['build'], ->
   gulp.watch parameters.assets_path, ['compile']
   gulp.watch parameters.less_main_file, ['compile']
   gulp.watch 'bower_components', ['compile']
+
+  serve(parameters.web_path)()
