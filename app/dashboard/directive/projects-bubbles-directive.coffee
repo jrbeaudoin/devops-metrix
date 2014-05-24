@@ -87,3 +87,13 @@ angular.module('metrix.dashboard')
     force.on "tick", (e) ->
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
+
+    $rootScope.$watch 'projects', ->
+      chartData = $rootScope.projects
+      circle.data(chartData)
+      scaleFactor = getScaleFactor chartData
+      circle.transition().duration(300).ease("elastic").attr("r", (d) ->
+        bubbleSize(d) / scaleFactor
+      )
+      .style("fill", "gray")
+    , true
