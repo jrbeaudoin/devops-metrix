@@ -85,7 +85,12 @@ angular.module('metrix.dashboard')
     .enter()
     .append("g")
     .attr("class", "node")
+    .append("svg:a")
     .call(force.drag)
+
+    node.attr("xlink:href", (d) ->
+      "/#/project/" + d.name
+    )
 
     circle = node.append("circle")
     projectName = node
@@ -96,8 +101,6 @@ angular.module('metrix.dashboard')
 
     update chartData
 
-    node.on "click", (d) ->
-      $location.url("/project/" + d.name)
     force.on "tick", ->
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
