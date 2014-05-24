@@ -78,7 +78,7 @@ angular.module('metrix.dashboard')
 
       fillCircle
       .attr("r", (d) ->
-          (bubbleSize(d) / scaleFactor) - 5
+          (bubbleSize(d) - 8) / scaleFactor
       )
       .style 'fill', 'lightgray'
 
