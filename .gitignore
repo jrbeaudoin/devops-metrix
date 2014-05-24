@@ -1,0 +1,16 @@
+.vagrant
+.idea
+
+app/**/*.js
+app/**/*.map
+
+test/**/*.js
+test/**/*.map
+
+node_modules
+npm-debug.log
+bower_components
+
+web
+coverage
+.idea

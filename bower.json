@@ -1,0 +1,29 @@
+{
+  "name": "devops-metrix",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jrbeaudouin/devops-metrix",
+  "authors": [],
+  "description": "",
+  "main": "app/app.js",
+  "keywords": [
+    "devops",
+    "metrix"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "*",
+    "jquery": "*",
+    "bootstrap": "*",
+    "angular": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "*"
+  }
+}
