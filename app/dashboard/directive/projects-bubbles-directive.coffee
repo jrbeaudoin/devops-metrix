@@ -88,7 +88,7 @@ angular.module('metrix.dashboard')
 
     update chartData
 
-    force.on "tick", (e) ->
+    force.on "tick", ->
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
 
@@ -96,6 +96,22 @@ angular.module('metrix.dashboard')
       chartData = $rootScope.projects
       circle.data(chartData)
       scaleFactor = getScaleFactor chartData
+
+      updatedProjects = $rootScope.projects.filter (project) -> project.updated
+
+      updatedNodes = []
+      for project in updatedProjects
+        foundNode = node.filter (d) ->
+          d.name == project.name
+        if foundNode
+          updatedNodes.push foundNode[0][0]
+          d3.select(foundNode[0][0])
+          .select("circle")
+          .style("stroke-width", "5px")
+          .transition("easeOut").duration(400)
+          .delay(200)
+          .style("stroke-width", "0px")
+
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor

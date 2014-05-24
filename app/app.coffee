@@ -48,8 +48,13 @@ angular
 
     updateData = ->
       for project in projects
-        project.commits += 1 if Math.random() > 0.99
-        project.deployedOn = new Date() if Math.random() > 0.995
+        project.updated = false
+        if Math.random() > 0.99
+          project.commits += 1
+          project.updated = true
+        if Math.random() > 0.995
+          project.deployedOn = new Date()
+          project.updated = true
 
     $interval ->
       updateData()
