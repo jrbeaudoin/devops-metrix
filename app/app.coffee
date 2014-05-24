@@ -51,6 +51,5 @@ angular
         project.commits += Math.round(Math.random())
 
     $interval ->
-      console.log "coucou"
       updateData()
     , 1000

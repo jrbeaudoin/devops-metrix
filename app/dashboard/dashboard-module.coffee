@@ -4,4 +4,10 @@ angular.module 'metrix.dashboard', [
 ]
 
 .controller 'dashboardController', () ->
-  console.log "controller"
+
+  return
+
+.directive 'metrixProjectsBubbles', ->
+  restrict: 'AE'
+  link:
+    console.log "directive called"

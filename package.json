@@ -4,7 +4,7 @@
   "description": "",
   "main": "app/app.coffee",
   "scripts": {
-    "postinstall": "bower install --config.interactive=false && gulp build-production",
+    "postinstall": "bower install --config.interactive=false && gulp build",
     "start": "gulp watch"
   },
   "repository": {
