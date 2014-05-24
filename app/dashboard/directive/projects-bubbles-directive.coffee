@@ -146,9 +146,10 @@ angular.module('metrix.dashboard')
           updatedNodes.push foundNode[0][0]
           d3.select(foundNode[0][0])
           .select("circle")
-          .style("stroke-width", "5px")
-          .transition("easeOut").duration(400)
-          .delay(200)
+          .transition("ease").duration(100)
+          .style("stroke-width", "4px")
+          .transition("ease").duration(800)
+          .delay(100)
           .style("stroke-width", "0px")
 
       circle
