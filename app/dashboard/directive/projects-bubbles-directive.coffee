@@ -1,6 +1,6 @@
 angular.module('metrix.dashboard')
 
-.directive 'metrixProjectsBubbles', ($rootScope) ->
+.directive 'metrixProjectsBubbles', ($rootScope, $location) ->
   template: "<svg></svg>"
   link: ($scope, $element) ->
     bubbleSize = (node) ->
@@ -96,6 +96,8 @@ angular.module('metrix.dashboard')
 
     update chartData
 
+    node.on "click", (d) ->
+      $location.url("/project/" + d.name)
     force.on "tick", ->
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
