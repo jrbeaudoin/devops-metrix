@@ -110,7 +110,7 @@ angular.module('metrix.dashboard')
       updatedNodes = []
       for project in updatedProjects
         foundNode = node.filter (d) ->
-          d.name == project.name
+          d.id == project.id
         if foundNode
           updatedNodes.push foundNode[0][0]
           d3.select(foundNode[0][0])
