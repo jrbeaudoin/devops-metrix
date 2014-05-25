@@ -78,12 +78,47 @@ metrix-projects-bubbles,
     overflow: visible;
   }
 
+  p {
+    font-size: 1.3em;
+    margin-bottom: 1.3em;
+  }
+
   span.title {
-    font-weight: bold;
+
   }
 
   span.content {
     padding-left: 0.5em;
+    font-weight: bold;
+  }
+
+  span.arrow {
+    font-size: 1.3em;
+    padding-left: 0.5em;
+
+    &.good {
+      color: rgb(20,231,134);
+    }
+
+    &.bad {
+      color: rgb(236,24,75);
+    }
+
+    &.stable {
+      color: lightgray;
+    }
+  }
+
+  span.bull {
+    font-size: 4em;
+    padding-left: 0.1em;
+    vertical-align: middle;
+    line-height: 1px;
+    color: rgb(236,24,75);
+
+    &.good {
+      color: rgb(20,231,134);
+    }
   }
 
   .line-chart, .error-chart {
@@ -138,5 +173,23 @@ metrix-projects-bubbles,
 
     .axis text {
     }
+  }
+}
+
+#close-zoom {
+  .transition(opacity ease 0.3s);
+  position: absolute;
+  font-size: 5em;
+  font-weight: 100;
+  line-height: 0.3em;
+  padding: 10px 10px 30px 30px;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+
+  &.zoom {
+    opacity: 1;
   }
 }

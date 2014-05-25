@@ -1,3 +1,4 @@
+#close-zoom(ng-class="{'zoom': zoomed}") &times;
 div(metrix-projects-bubbles, ng-class="{'zoom': zoomed}")
 .project-details(ng-class="{'zoom': zoomed}")
     .line-chart(metrix-line-chart)
@@ -8,15 +9,18 @@ div(metrix-projects-bubbles, ng-class="{'zoom': zoomed}")
     p
         span.title Commits:
         span.content {{ project.commits }}
+        span.arrow.stable &#x2192;
     p
         span.title Last deploy:
         span.content {{ project.deployedOn | date: medium }}
+        span.arrow.good &#x2197;
     p
         span.title Continuous Integration:
-        span.content {{ project.ci }}
+        span.bull(ng-class="{'good': project.ci}") &bull;
     p
         span.title Tests coverage:
         span.content {{ 100 * project.coverage | number:0 }}%
+        span.arrow.bad &#x2198;
     p
         span.title Online:
-        span.content {{ project.online }}
+        span.bull(ng-class="{'good': project.online}") &bull;
