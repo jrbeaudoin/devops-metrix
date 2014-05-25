@@ -100,6 +100,37 @@ angular
         {"date": "22-Mar-14", "value": 599.34},
         {"date": "21-Mar-14", "value": 602.50},
       ]
+      errors = [
+        {"date": "1-May-14", "value": .13},
+        {"date": "30-Apr-14", "value": .98},
+        {"date": "27-Apr-14", "value": .00},
+        {"date": "26-Apr-14", "value": .70},
+        {"date": "25-Apr-14", "value": .00},
+        {"date": "24-Apr-14", "value": .28},
+        {"date": "23-Apr-14", "value": .70},
+        {"date": "20-Apr-14", "value": .98},
+        {"date": "19-Apr-14", "value": .44},
+        {"date": "18-Apr-14", "value": .34},
+        {"date": "17-Apr-14", "value": 1.70},
+        {"date": "16-Apr-14", "value": 3.13},
+        {"date": "13-Apr-14", "value": 4.23},
+        {"date": "12-Apr-14", "value": .77},
+        {"date": "11-Apr-14", "value": .20},
+        {"date": "10-Apr-14", "value": .44},
+        {"date": "9-Apr-14", "value": .23},
+        {"date": "5-Apr-14", "value": .68},
+        {"date": "4-Apr-14", "value": .31},
+        {"date": "3-Apr-14", "value": .32},
+        {"date": "2-Apr-14", "value": .63},
+        {"date": "30-Mar-14", "value": .55},
+        {"date": "29-Mar-14", "value": .86},
+        {"date": "28-Mar-14", "value": .62},
+        {"date": "27-Mar-14", "value": .48},
+        {"date": "26-Mar-14", "value": .98},
+        {"date": "23-Mar-14", "value": .05},
+        {"date": "22-Mar-14", "value": .34},
+        {"date": "21-Mar-14", "value": .50},
+      ]
       for i in [0..10]
         projects.push
           "id": i
@@ -112,6 +143,7 @@ angular
           "coverage": Math.min Math.max(0, randomGauss 0.5, 0.4), 1
           "online": true
           "visits": visits
+          "errors": errors
       for project in projects
         project.score = computeScore project
 

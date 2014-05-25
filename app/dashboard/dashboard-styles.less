@@ -86,11 +86,11 @@ metrix-projects-bubbles,
     padding-left: 0.5em;
   }
 
-  .line-chart {
+  .line-chart, .error-chart {
     position: absolute;
     right: 0;
     width: 60%;
-    height: 200px;
+    height: 160px;
 
     svg {
       pointer-events: none;
@@ -120,6 +120,23 @@ metrix-projects-bubbles,
     .axis text {
       shape-rendering: auto;
       font-weight: 200;
+    }
+  }
+
+  .error-chart {
+    top: 200px;
+
+    svg {
+    }
+
+    path {
+      stroke: rgba(236,24,75, 0.8);
+    }
+
+    .axis * {
+    }
+
+    .axis text {
     }
   }
 }
