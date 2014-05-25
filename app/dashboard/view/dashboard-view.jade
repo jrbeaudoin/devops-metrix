@@ -1,6 +1,7 @@
 div(metrix-projects-bubbles, ng-class="{'zoom': zoomed}")
 .project-details(ng-class="{'zoom': zoomed}")
     .line-chart(metrix-line-chart)
+    .error-chart(metrix-error-line-chart)
     p
         span.title Contributors:
         span.content {{ project.contributors }}
@@ -19,6 +20,3 @@ div(metrix-projects-bubbles, ng-class="{'zoom': zoomed}")
     p
         span.title Online:
         span.content {{ project.online }}
-    p
-        span.title Score:
-        span.content {{ project.score }}
