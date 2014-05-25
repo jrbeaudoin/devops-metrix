@@ -2,14 +2,19 @@
 @bootstrap-path: '@{bower-components}/bootstrap/less';
 @import '@{bootstrap-path}/bootstrap';
 
-@import url(http://fonts.googleapis.com/css?family=Raleway:100,400,500);
+@import url(http://fonts.googleapis.com/css?family=Raleway:200,300,400,500);
 @font-family-base: Raleway;
 @body-bg: #6D6C75;
+@bg-1: #7a425f;
+@bg-2: #2f455c;
 @white: #F4FAFF;
 @grid-gutter-width: 0;
+@link-color: @white;
 
 html {
-  #gradient.radial( lighten(@body-bg, 15), @body-bg);
+  #gradient.radial( @bg-1, @bg-2);
+  background-image: url('../images/background.jpg');
+  background-size: cover;
   background-attachment: fixed;
   min-height: 100%;
   overflow-y: hidden;
