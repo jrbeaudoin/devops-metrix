@@ -105,13 +105,21 @@ metrix-projects-bubbles,
 
     path {
       fill: none;
-      stroke: @white;
+      stroke: rgba(255, 255, 255, 0.8);
       stroke-width: 1px;
     }
 
     .axis * {
+      font-family: 'Raleway';
+      font-weight: 200;
+      shape-rendering: crispEdges;
       stroke-width: 1px;
-      stroke: #333;
+      stroke: rgba(255, 255, 255, 0.6);
+    }
+
+    .axis text {
+      shape-rendering: auto;
+      font-weight: 200;
     }
   }
 }

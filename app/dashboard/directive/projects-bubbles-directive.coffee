@@ -160,7 +160,7 @@ angular.module('metrix.dashboard')
     fillCircle = circlesContainer.append("circle").attr("class", "fill-circle")
 
 
-    projectScore = node
+    projectScore = circlesContainer
     .append 'text'
     .attr 'x', 0
     .attr 'y', 0
