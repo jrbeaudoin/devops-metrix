@@ -65,15 +65,17 @@ metrix-projects-bubbles,
   color: white;
   font-size: 1em;
   height: 0%;
+  overflow: hidden;
   margin: 30px;
   opacity: 0;
-  overflow: hidden;
   position: absolute;
   top: 40%;
+  width: 90%;
 
   &.zoom {
     height: 60%;
     opacity: 1;
+    overflow: visible;
   }
 
   span.title {
@@ -82,5 +84,34 @@ metrix-projects-bubbles,
 
   span.content {
     padding-left: 0.5em;
+  }
+
+  .line-chart {
+    position: absolute;
+    right: 0;
+    width: 60%;
+    height: 200px;
+
+    svg {
+      pointer-events: none;
+      padding: 1px 0 35px 36px;
+      overflow: visible;
+    }
+
+    text {
+      font-family: 'Raleway';
+      font-weight: 100;
+    }
+
+    path {
+      fill: none;
+      stroke: @white;
+      stroke-width: 1px;
+    }
+
+    .axis * {
+      stroke-width: 1px;
+      stroke: #333;
+    }
   }
 }

@@ -45,6 +45,7 @@ angular.module('metrix.dashboard')
     nodeClick = (nodeClicked) ->
       $scope.zoomed = true
       $scope.project = nodeClicked
+      $rootScope.currentProject = $scope.project
       force.stop()
       svg.selectAll(".node").classed("hidden", true)
       zoomScale = 3
@@ -70,6 +71,7 @@ angular.module('metrix.dashboard')
 
     svgClick = ->
       $scope.zoomed = false
+      $rootScope.currentProject = undefined
       svg.classed("zoom", false)
       svg.selectAll(".node")
       .classed("hidden", false)
