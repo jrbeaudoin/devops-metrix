@@ -52,9 +52,9 @@ angular
           score = score + 4
         when timeSinceLastDeployed < 3 * weekInSeconds
           score = score + 3
-        when timeSinceLastDeployed < 4 *weekInSeconds
+        when timeSinceLastDeployed < 4 * weekInSeconds
           score = score + 2
-        when timeSinceLastDeployed < 6 * 4 *weekInSeconds
+        when timeSinceLastDeployed < 6 * 4 * weekInSeconds
           score = score + 1
 
       score = score + 2 if project.ci
