@@ -1,7 +1,7 @@
 {
   "name": "devops-metrix",
   "version": "0.0.0",
-  "homepage": "https://github.com/jrbeaudouin/devops-metrix",
+  "homepage": "https://github.com/jrbeaudoin/devops-metrix",
   "authors": [],
   "description": "",
   "main": "app/app.js",

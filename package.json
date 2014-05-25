@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jrbeaudouin/devops-metrix.git"
+    "url": "git://github.com/jrbeaudoin/devops-metrix.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jrbeaudouin/devops-metrix/issues"
+    "url": "https://github.com/jrbeaudoin/devops-metrix/issues"
   },
-  "homepage": "https://github.com/jrbeaudouin/devops-metrix",
+  "homepage": "https://github.com/jrbeaudoin/devops-metrix",
   "dependencies": {
     "bower": "^1.3.3",
     "coffee-script": "^1.7.1",
