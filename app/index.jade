@@ -16,8 +16,15 @@ html(lang='fr', xmlns:ng='http://angularjs.org', id='ng-app', ng-app='devops-met
     div.dashboard(ng-view)
 
     .thanks
-      p Thanks to all mentors that visited us during the #hackatonSG for their precious advises, particularly Jean and ....
+      p Thanks to all mentors that visited us during the #hackatonSG for their precious advises.
       p Thanks to Charlotte Breton Schreiner who helped us a lot for the design.
     script(src='js/vendor.js')
     script(src='js/app.templates.js')
     script(src='js/app.js')
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-36812575-3', '62.4.19.90');
+      ga('send', 'pageview');
