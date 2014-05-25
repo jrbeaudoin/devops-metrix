@@ -14,7 +14,6 @@ angular.module('metrix.dashboard')
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
-#          return 'rgb(20,201,114)'
           return 'rgb(20,231,134)'
         when false
           return 'rgb(236,24,75)'
@@ -41,6 +40,8 @@ angular.module('metrix.dashboard')
       # Create scaleFactor that will ensure circles will fit in the window
       return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * Math.sqrt(data.length) * 4
 
+    projetName = []
+
     nodeClick = (nodeClicked) ->
       $scope.zoomed = true
       $scope.project = nodeClicked
@@ -63,6 +64,7 @@ angular.module('metrix.dashboard')
         "translate(" + 0.5 * width + "," + 0 + ") scale(" + zoomScale + ")"
       )
       .select(".name").attr("dy", "1em")
+
       # Prevent call to svgClick
       d3.event.stopPropagation()
 
@@ -230,9 +232,24 @@ angular.module('metrix.dashboard')
       .selectAll '.bg-stop'
       .attr 'offset', bubbleFillLevel
 
-      projectScore.text bubbleScore
-      .attr 'dy', (d) ->
-        0.55 * bubbleSize(d) / scaleFactor
-      .attr 'font-size', (d) ->
-        ( 1.5 * bubbleSize(d) / scaleFactor ) + 'px'
+      if $scope.zoomed
+        projectScore.text( (d) ->
+          bubbleScore(d) + "/10"
+        )
+        .attr 'dy', (d) ->
+          0.7 * bubbleSize(d) / scaleFactor
+        .attr 'font-size', (d) ->
+          ( 0.35 * bubbleSize(d) / scaleFactor ) + 'px'
+
+        projectName.style("font-size", (d) ->
+          0.25 * bubbleSize(d) / scaleFactor + 'px'
+        )
+      else
+        projectScore.text bubbleScore
+        .attr 'dy', (d) ->
+          0.6 * bubbleSize(d) / scaleFactor
+        .attr 'font-size', (d) ->
+          ( 0.5 * bubbleSize(d) / scaleFactor ) + 'px'
+
+        projectName.style("font-size", "1em")
     , true
