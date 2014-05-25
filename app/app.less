@@ -12,6 +12,7 @@ html {
   #gradient.radial( lighten(@body-bg, 15), @body-bg);
   background-attachment: fixed;
   min-height: 100%;
+  overflow-y: hidden;
 
   body {
     background: transparent;
@@ -27,6 +28,24 @@ html {
     .make-sm-column(3);
     .make-md-column(2);
     .hidden-xs;
+  }
+
+  .thanks {
+    .transition(all ease 0.3s);
+    bottom: -70px;
+    opacity: 0;
+    padding: 1em 1em 0 0;
+    position: fixed;
+    right: -220px;
+    text-align: right;
+    width: 250px;
+
+    &:hover {
+      background: rgba(255,255,255,0.6);
+      bottom: 0;
+      opacity: 1;
+      right: 0;
+    }
   }
 }
 
