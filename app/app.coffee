@@ -16,14 +16,16 @@ angular
     $routeProvider.otherwise
       redirectTo: '/dashboard'
 
+    $httpProvider.defaults.useXDomain = true
+
     delete $httpProvider.defaults.headers.common['X-Requested-With']
 ])
 
-.run( (dataGenerator) ->
+.run (dataGenerator) ->
   dataGenerator()
-)
 
-.factory 'dataGenerator', ($interval, $rootScope, randomNames) ->
+
+.factory 'dataGenerator', ($q, $interval, $rootScope, $http, randomNames) ->
   return ->
     rnd_snd = ->
       return (Math.random()*2-1)+(Math.random()*2-1)+(Math.random()*2-1)
@@ -67,6 +69,118 @@ angular
           score = score + 1
 
       score
+
+    getContributorsPromise = (url) ->
+      deferred = $q.defer()
+      $http
+        method: "GET"
+        url: url
+      .success (data) ->
+        deferred.resolve if data.length then data.length else 0
+      .error ->
+        deferred.resolve 0
+
+      deferred.promise
+
+    getCommitsPromise = (url) ->
+      deferred = $q.defer()
+      $http
+        method: "GET"
+        url: url
+      .success (data) ->
+          if data.all?
+            commits = data.all.reduce (sum, currentValue) ->
+              sum += currentValue
+            , 0
+          else
+            commits = 0
+          deferred.resolve commits
+      .error ->
+          deferred.resolve 0
+
+      deferred.promise
+
+    getLastDeployPromise = (url) ->
+      deferred = $q.defer()
+      $http
+        method: "GET"
+        url: url
+      .success (data) ->
+        if data.length > 0
+          lastCommit = data[0]
+          deployedOn = lastCommit.commit.committer.date
+        else
+          now = new Date()
+          deployedOn = now.setYear(now.getFullYear() - 1)
+        deferred.resolve deployedOn
+      .error ->
+        deferred.resolve now.setYear(now.getFullYear() - 1)
+
+      deferred.promise
+
+    getCIPromise = (url) ->
+      deferred = $q.defer()
+      $http
+        method: "GET"
+        url: url
+      .success (data) ->
+          ci = {}
+          ci.ci = data.length > 0
+          lastBuild = data.filter( (build) ->
+            build.state == "finished"
+          )[0]
+          ci.status = lastBuild.result == 0
+
+          deferred.resolve ci
+      .error ->
+          ci =
+            ci: false
+            status: false
+          deferred.resolve ci
+
+      deferred.promise
+
+    getGithubData = ->
+      project =
+        name: "Gulp.js"
+      # Contributors
+      getContributorsPromise("https://api.github.com/repos/gulpjs/gulp/stats/contributors")
+      .then (contributors) ->
+        project.contributors = contributors
+
+      # Commits
+      getCommitsPromise("https://api.github.com/repos/gulpjs/gulp/stats/participation")
+      .then (commits) ->
+        project.commits = commits
+
+      # Last deployment
+      # I use the last commit on master for now
+      getLastDeployPromise("https://api.github.com/repos/gulpjs/gulp/commits")
+      .then (deployedOn) ->
+        project.deployedOn = deployedOn
+
+      # Build
+      getCIPromise("https://api.travis-ci.org/repos/gulpjs/gulp/builds")
+      .then (ci) ->
+        project.ci = ci.ci
+        project.ciStatus = ci.status
+
+      # Fail because of CORS :'(
+      # Coverage
+#      $http
+#        method: "GET"
+#        url: "https://img.shields.io/coveralls/gulpjs/gulp.svg"
+#      .success (data) ->
+#          project.coverage = data
+#      .error ->
+#          project.coverage = 0
+
+      project.coverage = 1
+      project.online = true
+      project.visits = []
+      project.errors = []
+      project.score = computeScore project
+      return project
 
     createData = ->
       visits = [
@@ -131,6 +245,7 @@ angular
         {"date": "22-Mar-14", "value": .34},
         {"date": "21-Mar-14", "value": .50},
       ]
+
       for i in [0..10]
         projects.push
           "id": i
@@ -144,28 +259,34 @@ angular
           "online": true
           "visits": visits
           "errors": errors
+
       for project in projects
         project.score = computeScore project
 
+    gulp = getGithubData()
     createData()
+
+    console.log "gulp"
+    console.log gulp
 
     updateData = ->
       for project in projects
-        project.updated = false
-        if Math.random() > 0.99
-          project.commits += 1
-          project.ciStatus = (Math.random() > 0.5) if Math.random() > 0.7
-          project.coverage = Math.min Math.max(0, project.coverage + randomGauss 0, 0.05), 1
-          project.updated = true
-        if Math.random() > 0.995
-          project.deployedOn = new Date()
-          project.updated = true
-        if project.updated
-          if Math.random() > 0.4 and !project.online
-            project.online = true
-          if Math.random() > 0.93 and project.online
-            project.online = false
-        project.score = computeScore project
+        if project.name != "Gulp.js"
+          project.updated = false
+          if Math.random() > 0.99
+            project.commits += 1
+            project.ciStatus = (Math.random() > 0.5) if Math.random() > 0.7
+            project.coverage = Math.min Math.max(0, project.coverage + randomGauss 0, 0.05), 1
+            project.updated = true
+          if Math.random() > 0.995
+            project.deployedOn = new Date()
+            project.updated = true
+          if project.updated
+            if Math.random() > 0.4 and !project.online
+              project.online = true
+            if Math.random() > 0.93 and project.online
+              project.online = false
+          project.score = computeScore project
 
     $interval ->
       updateData()
