@@ -4,6 +4,14 @@ Monitor useful metrics of an IT Department's projects
 
 # Set-up
 
+## Requirements
+
+* Ruby
+* Capistrano
+* Node + npm
+
+## Installation
+
     npm install
 
 `npm start` to see the app live served in `web/` folder.
