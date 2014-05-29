@@ -15,13 +15,13 @@ angular.module('metrix.dashboard')
       switch node.ciStatus
         when true
           return 'rgb(20,231,134)'
-        when false
+        else
           return 'rgb(236,24,75)'
     bubbleFillLevel = (node) ->
       switch node.ci
         when true
           return node.coverage
-        when false
+        else
           return 0
     bubbleBgColor = (node) ->
       'lightgray'
@@ -40,7 +40,7 @@ angular.module('metrix.dashboard')
       # Create scaleFactor that will ensure circles will fit in the window
       return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * Math.sqrt(data.length) * 4
 
-    projetName = []
+    projectName = []
 
     nodeClick = (nodeClicked) ->
       $scope.zoomed = true

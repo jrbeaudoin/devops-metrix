@@ -70,7 +70,7 @@ angular
 
       score
 
-    getContributorsPromise = (url) ->
+    getContributors = (url) ->
       deferred = $q.defer()
       $http
         method: "GET"
@@ -82,7 +82,7 @@ angular
 
       deferred.promise
 
-    getCommitsPromise = (url) ->
+    getCommits = (url) ->
       deferred = $q.defer()
       $http
         method: "GET"
@@ -100,7 +100,7 @@ angular
 
       deferred.promise
 
-    getLastDeployPromise = (url) ->
+    getLastDeploy = (url) ->
       deferred = $q.defer()
       $http
         method: "GET"
@@ -118,7 +118,7 @@ angular
 
       deferred.promise
 
-    getCIPromise = (url) ->
+    getCI = (url) ->
       deferred = $q.defer()
       $http
         method: "GET"
@@ -144,23 +144,23 @@ angular
       project =
         name: "Gulp.js"
       # Contributors
-      getContributorsPromise("https://api.github.com/repos/gulpjs/gulp/stats/contributors")
+      getContributors("https://api.github.com/repos/gulpjs/gulp/stats/contributors")
       .then (contributors) ->
         project.contributors = contributors
 
       # Commits
-      getCommitsPromise("https://api.github.com/repos/gulpjs/gulp/stats/participation")
+      getCommits("https://api.github.com/repos/gulpjs/gulp/stats/participation")
       .then (commits) ->
         project.commits = commits
 
       # Last deployment
       # I use the last commit on master for now
-      getLastDeployPromise("https://api.github.com/repos/gulpjs/gulp/commits")
+      getLastDeploy("https://api.github.com/repos/gulpjs/gulp/commits")
       .then (deployedOn) ->
         project.deployedOn = deployedOn
 
       # Build
-      getCIPromise("https://api.travis-ci.org/repos/gulpjs/gulp/builds")
+      getCI("https://api.travis-ci.org/repos/gulpjs/gulp/builds")
       .then (ci) ->
         project.ci = ci.ci
         project.ciStatus = ci.status
