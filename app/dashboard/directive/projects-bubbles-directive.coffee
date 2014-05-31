@@ -121,7 +121,7 @@ angular.module('metrix.dashboard')
 
       fillCircle
       .attr("r", (d) ->
-          (bubbleSize(d) - 8) / scaleFactor
+          bubbleSize(d) / scaleFactor - 4
       )
       .style 'fill', 'lightgray'
 
@@ -224,6 +224,10 @@ angular.module('metrix.dashboard')
       circlesContainer
       .style 'opacity', bubbleOpacity
       .classed "offline", (d) -> return !d.online
+
+      fillCircle
+      .attr 'r', (d) ->
+        bubbleSize(d) / scaleFactor - 4
 
       gradient
       .selectAll '.fg-stop'

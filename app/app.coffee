@@ -259,19 +259,22 @@ angular
           "online": true
           "visits": visits
           "errors": errors
-
-      for project in projects
-        project.score = computeScore project
+          random: true
 
     gulp = getGithubData()
+    projects.push gulp
     createData()
+
+    for project in projects
+      project.id = projects.indexOf project
+      project.score = computeScore project
 
     console.log "gulp"
     console.log gulp
 
     updateData = ->
       for project in projects
-        if project.name != "Gulp.js"
+        if project.random
           project.updated = false
           if Math.random() > 0.99
             project.commits += 1
