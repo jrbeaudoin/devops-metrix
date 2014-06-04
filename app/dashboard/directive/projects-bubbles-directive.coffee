@@ -10,7 +10,7 @@ angular.module('metrix.dashboard')
     bubbleScore = (node) ->
       node.score
     bubbleSize = (node) ->
-      Math.sqrt node.commits
+      Math.sqrt(node.commits) or 100
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
@@ -198,6 +198,7 @@ angular.module('metrix.dashboard')
         "translate(" + d.x + "," + d.y + ")"
 
     $rootScope.$watch 'projects', ->
+      if !chartData then return
       chartData = $rootScope.projects
       circle.data(chartData)
       scaleFactor = getScaleFactor chartData
@@ -259,3 +260,15 @@ angular.module('metrix.dashboard')
 
         projectName.style("font-size", "1em")
     , true
+
+    $rootScope.$watch "projects", (newVal) ->
+      console.log newVal
+      if newVal
+        chartData = $rootScope.projects
+        force.stop()
+        scaleFactor = getScaleFactor chartData
+        force.charge((d) ->
+          - (bubbleSize(d) / scaleFactor) * repulsion
+        ).nodes(chartData)
+        force.resume()
+      return

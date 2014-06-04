@@ -141,6 +141,7 @@ angular
       deferred.promise
 
     getGithubData = ->
+      deferred = $q.defer()
       project =
         name: "Gulp.js"
       # Contributors
@@ -180,7 +181,8 @@ angular
       project.visits = []
       project.errors = []
       project.score = computeScore project
-      return project
+      deferred.resolve project
+      return deferred.promise
 
     createData = ->
       visits = [
@@ -261,16 +263,16 @@ angular
           "errors": errors
           random: true
 
-    gulp = getGithubData()
-    projects.push gulp
+    getGithubData().then (gulpProject) ->
+      console.log "gulp"
+      console.log gulpProject
+      projects.push gulpProject
+
     createData()
 
     for project in projects
       project.id = projects.indexOf project
       project.score = computeScore project
-
-    console.log "gulp"
-    console.log gulp
 
     updateData = ->
       for project in projects
