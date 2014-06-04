@@ -15,6 +15,7 @@ Monitor useful metrics of an IT Department's projects
     npm install
 
 `npm start` to see the app live served in `web/` folder.
+You can then access the app at localhost:3000
 
 # Deployment
 
