@@ -1,0 +1,13 @@
+
+<div id="close-zoom" ng-class="{'zoom': zoomed}">&times;</div>
+<div metrix-projects-bubbles="metrix-projects-bubbles" ng-class="{'zoom': zoomed}"></div>
+<div ng-class="{'zoom': zoomed}" class="project-details">
+  <div metrix-line-chart="metrix-line-chart" class="line-chart"></div>
+  <div metrix-error-line-chart="metrix-error-line-chart" class="error-chart"></div>
+  <p><span class="title">Contributors:</span><span class="content">{{ project.contributors }}</span></p>
+  <p><span class="title">Commits:</span><span class="content">{{ project.commits }}</span><span class="arrow stable">&#x2192;</span></p>
+  <p><span class="title">Last deploy:</span><span class="content">{{ project.deployedOn | date: medium }}</span><span class="arrow good">&#x2197;</span></p>
+  <p><span class="title">Continuous Integration:</span><span ng-class="{'good': project.ci}" class="bull">&bull;</span></p>
+  <p><span class="title">Tests coverage:</span><span class="content">{{ 100 * project.coverage | number:0 }}%</span><span class="arrow bad">&#x2198;</span></p>
+  <p><span class="title">Online:</span><span ng-class="{'good': project.online}" class="bull">&bull;</span></p>
+</div>
