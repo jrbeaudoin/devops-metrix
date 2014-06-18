@@ -278,6 +278,14 @@ angular
 
     projects.push getGithubData(expressParams)
 
+    angularParams =
+      displayName: "Angular.js"
+      entity: "angular"
+      repository: "angular.js"
+      coverage: 0.8
+
+    projects.push getGithubData(angularParams)
+
     createData()
 
     for project in projects
