@@ -77,14 +77,6 @@ angular
         url: url
       .success (data) ->
         deferred.resolve if data.length then data.length else 0
-
-        console.log "contributors"
-        console.log data
-        totalCommits = data.reduce (commits, contributor) ->
-          commits += contributor.total
-        , 0
-        console.log "totalCommits"
-        console.log totalCommits
       .error ->
         deferred.resolve 0
 
@@ -122,6 +114,7 @@ angular
           deployedOn = now.setYear(now.getFullYear() - 1)
         deferred.resolve deployedOn
       .error ->
+        now = new Date()
         deferred.resolve now.setYear(now.getFullYear() - 1)
 
       deferred.promise
@@ -149,7 +142,6 @@ angular
       deferred.promise
 
     getGithubData = (projectParams) ->
-      deferred = $q.defer()
       project =
         name: projectParams.displayName
       # Contributors
@@ -189,8 +181,7 @@ angular
       project.visits = []
       project.errors = []
       project.score = computeScore project
-      deferred.resolve project
-      return deferred.promise
+      return project
 
     createData = ->
       visits = [
@@ -277,10 +268,7 @@ angular
       repository: "gulp"
       coverage: 1
 
-    getGithubData(gulpParams).then (gulpProject) ->
-      console.log "gulp"
-      console.log gulpProject
-      projects.push gulpProject
+    projects.push getGithubData(gulpParams)
 
     expressParams =
       displayName: "express"
@@ -288,10 +276,7 @@ angular
       repository: "express"
       coverage: 0.99
 
-    getGithubData(expressParams).then (expressProject) ->
-      console.log "express"
-      console.log expressProject
-      projects.push expressProject
+    projects.push getGithubData(expressParams)
 
     createData()
 

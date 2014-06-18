@@ -197,7 +197,7 @@ angular.module('metrix.dashboard')
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
 
-    $rootScope.$watch 'projects', ->
+    $rootScope.$watch 'projects', (newVal, oldVal) ->
       if !chartData then return
       chartData = $rootScope.projects
       circle.data(chartData)
@@ -259,16 +259,10 @@ angular.module('metrix.dashboard')
           ( 0.5 * bubbleSize(d) / scaleFactor ) + 'px'
 
         projectName.style("font-size", "1em")
-    , true
 
-    $rootScope.$watch "projects", (newVal) ->
-      console.log newVal
-      if newVal
-        chartData = $rootScope.projects
-        force.stop()
-        scaleFactor = getScaleFactor chartData
+      forceToBeUpdated = not newVal.every (elem, i) -> elem.commits is oldVal[i].commits
+      if forceToBeUpdated
         force.charge((d) ->
           - (bubbleSize(d) / scaleFactor) * repulsion
         ).nodes(chartData)
-        force.resume()
-      return
+    , true
