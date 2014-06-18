@@ -77,6 +77,14 @@ angular
         url: url
       .success (data) ->
         deferred.resolve if data.length then data.length else 0
+
+        console.log "contributors"
+        console.log data
+        totalCommits = data.reduce (commits, contributor) ->
+          commits += contributor.total
+        , 0
+        console.log "totalCommits"
+        console.log totalCommits
       .error ->
         deferred.resolve 0
 
@@ -140,28 +148,28 @@ angular
 
       deferred.promise
 
-    getGithubData = ->
+    getGithubData = (projectParams) ->
       deferred = $q.defer()
       project =
-        name: "Gulp.js"
+        name: projectParams.displayName
       # Contributors
-      getContributors("https://api.github.com/repos/gulpjs/gulp/stats/contributors")
+      getContributors("https://api.github.com/repos/" + projectParams.entity + "/" + projectParams.repository + "/stats/contributors")
       .then (contributors) ->
         project.contributors = contributors
 
       # Commits
-      getCommits("https://api.github.com/repos/gulpjs/gulp/stats/participation")
+      getCommits("https://api.github.com/repos/" + projectParams.entity + "/" + projectParams.repository + "/stats/participation")
       .then (commits) ->
         project.commits = commits
 
       # Last deployment
       # I use the last commit on master for now
-      getLastDeploy("https://api.github.com/repos/gulpjs/gulp/commits")
+      getLastDeploy("https://api.github.com/repos/" + projectParams.entity + "/" + projectParams.repository + "/commits")
       .then (deployedOn) ->
         project.deployedOn = deployedOn
 
       # Build
-      getCI("https://api.travis-ci.org/repos/gulpjs/gulp/builds")
+      getCI("https://api.travis-ci.org/repos/" + projectParams.entity + "/" + projectParams.repository + "/builds")
       .then (ci) ->
         project.ci = ci.ci
         project.ciStatus = ci.status
@@ -176,7 +184,7 @@ angular
 #      .error ->
 #          project.coverage = 0
 
-      project.coverage = 1
+      project.coverage = projectParams.coverage
       project.online = true
       project.visits = []
       project.errors = []
@@ -263,10 +271,27 @@ angular
           "errors": errors
           random: true
 
-    getGithubData().then (gulpProject) ->
+    gulpParams =
+      displayName: "Gulp.js"
+      entity: "gulpjs"
+      repository: "gulp"
+      coverage: 1
+
+    getGithubData(gulpParams).then (gulpProject) ->
       console.log "gulp"
       console.log gulpProject
       projects.push gulpProject
+
+    expressParams =
+      displayName: "express"
+      entity: "visionmedia"
+      repository: "express"
+      coverage: 0.99
+
+    getGithubData(expressParams).then (expressProject) ->
+      console.log "express"
+      console.log expressProject
+      projects.push expressProject
 
     createData()
 
