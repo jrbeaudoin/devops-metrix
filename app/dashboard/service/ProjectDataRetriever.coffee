@@ -32,6 +32,46 @@ angular.module('metrix.dashboard')
 
     $rootScope.projects.push DataProvider.getDataForProject angularParams
 
+    lodashParams =
+      displayName: 'Lo-Dash'
+      entity: 'lodash'
+      repository: 'lodash'
+      coverage: 0.99
+
+    $rootScope.projects.push DataProvider.getDataForProject lodashParams
+
+    pixiParams =
+      displayName: 'Pixi'
+      entity: 'GoodBoyDigital'
+      repository: 'pixi.js'
+      coverage: 1
+
+    $rootScope.projects.push DataProvider.getDataForProject pixiParams
+
+    gitlabParams =
+      displayName: 'GitLab'
+      entity: 'gitlabhq'
+      repository: 'gitlabhq'
+      coverage: 1
+
+    $rootScope.projects.push DataProvider.getDataForProject gitlabParams
+
+    bespokeParams =
+      displayName: 'Bespoke'
+      entity: 'markdalgleish'
+      repository: 'bespoke.js'
+      coverage: 1
+
+    $rootScope.projects.push DataProvider.getDataForProject bespokeParams
+
+    semanticParams =
+      displayName: 'SemanticUI'
+      entity: 'Semantic-Org'
+      repository: 'Semantic-UI'
+      coverage: 0.14
+
+    $rootScope.projects.push DataProvider.getDataForProject semanticParams
+
     updateScore = (project) ->
       project.score = Score.compute project
 
