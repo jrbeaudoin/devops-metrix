@@ -219,6 +219,8 @@ angular.module('metrix.dashboard')
           .delay(100)
           .style 'fill', 'lightgray'
 
+      _.each updatedProjects, (project) -> project.updated = false
+
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
