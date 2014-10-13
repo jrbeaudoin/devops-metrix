@@ -5780,13 +5780,15 @@ html {
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-attachment: fixed;
-  min-height: 100%;
+  height: 100%;
   overflow-y: hidden;
 }
 html body {
   background: transparent;
+  height: 100%;
 }
 html .dashboard {
+  height: 100%;
   float: left;
   width: 100%;
   position: relative;
@@ -5830,23 +5832,9 @@ html .help {
     display: none !important;
   }
 }
-html .thanks {
-  -webkit-transition: all ease 0.3s;
-  transition: all ease 0.3s;
-  bottom: -70px;
-  opacity: 0;
-  padding: 1em 1em 0 0;
-  position: fixed;
-  right: -220px;
-  text-align: right;
-  width: 250px;
-  cursor: pointer;
-}
-html .thanks:hover {
-  background: rgba(255, 255, 255, 0.6);
-  bottom: 0;
-  opacity: 1;
-  right: 0;
+metrix-projects-bubbles,
+[metrix-projects-bubbles] {
+  height: 100%;
 }
 metrix-projects-bubbles svg text,
 [metrix-projects-bubbles] svg text {
