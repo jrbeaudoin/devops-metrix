@@ -10,18 +10,18 @@ angular.module('metrix.dashboard')
     bubbleScore = (node) ->
       node.score
     bubbleSize = (node) ->
-      Math.sqrt node.commits
+      Math.sqrt(node.commits) or 100
     bubbleColor = (node) ->
       switch node.ciStatus
         when true
           return 'rgb(20,231,134)'
-        when false
+        else
           return 'rgb(236,24,75)'
     bubbleFillLevel = (node) ->
       switch node.ci
         when true
           return node.coverage
-        when false
+        else
           return 0
     bubbleBgColor = (node) ->
       'lightgray'
@@ -40,7 +40,7 @@ angular.module('metrix.dashboard')
       # Create scaleFactor that will ensure circles will fit in the window
       return maxValue / Math.min($('[metrix-projects-bubbles]').width(), $('[metrix-projects-bubbles]').height()) * Math.sqrt(data.length) * 4
 
-    projetName = []
+    projectName = []
 
     nodeClick = (nodeClicked) ->
       $scope.zoomed = true
@@ -121,7 +121,7 @@ angular.module('metrix.dashboard')
 
       fillCircle
       .attr("r", (d) ->
-          (bubbleSize(d) - 8) / scaleFactor
+          bubbleSize(d) / scaleFactor - 4
       )
       .style 'fill', 'lightgray'
 
@@ -197,7 +197,8 @@ angular.module('metrix.dashboard')
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
 
-    $rootScope.$watch 'projects', ->
+    $rootScope.$watch 'projects', (newVal, oldVal) ->
+      if !chartData then return
       chartData = $rootScope.projects
       circle.data(chartData)
       scaleFactor = getScaleFactor chartData
@@ -218,12 +219,18 @@ angular.module('metrix.dashboard')
           .delay(100)
           .style 'fill', 'lightgray'
 
+      _.each updatedProjects, (project) -> project.updated = false
+
       circle
       .attr "r", (d) ->
         bubbleSize(d) / scaleFactor
       circlesContainer
       .style 'opacity', bubbleOpacity
       .classed "offline", (d) -> return !d.online
+
+      fillCircle
+      .attr 'r', (d) ->
+        bubbleSize(d) / scaleFactor - 4
 
       gradient
       .selectAll '.fg-stop'
@@ -254,4 +261,10 @@ angular.module('metrix.dashboard')
           ( 0.5 * bubbleSize(d) / scaleFactor ) + 'px'
 
         projectName.style("font-size", "1em")
+
+      forceToBeUpdated = not newVal.every (elem, i) -> elem.commits is oldVal[i].commits
+      if forceToBeUpdated
+        force.charge((d) ->
+          - (bubbleSize(d) / scaleFactor) * repulsion
+        ).nodes(chartData)
     , true
